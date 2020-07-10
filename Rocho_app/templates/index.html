@@ -1,0 +1,70 @@
+{% extends 'base/base.html' %}
+{% from 'macros/_paginacion.html' import m_pagination %}
+{% block container %}
+    <h1>Pacientes: </h1>
+    <a class="btn btn-primary btn-lg" href="{{ url_for('pacientes.crear')}}" role="button"><i class="fa fa-user-injured" data-toggle="tooltip" data-placement="top" title="Nuevo Paciente"></i></a>
+    {%for paciente in pacientes.items%}
+    <div class="card mb-3 form-small" style="max-width: 540px;">
+      <div class="row no-gutters">
+        <div class="col-md-4">
+          <img src="{{url_for('static',filename='img/index.png')}}" class="card-img" alt="...">
+        </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{paciente['nombre'] }} {{paciente['apellidos']}}</h5>
+        <p class="card-text">
+          <strong>Expediente:</strong> {{ paciente['categoria'].nombre }}
+          <br>
+          <strong>Síntomas:</strong> {{paciente['sintomas']}}
+          <br>
+          <strong>Alergias:</strong>{{paciente['alergias']}}
+          <br>
+        </p>
+        <p class="card-text">
+          <a class="btn btn-primary btn-lg" href="{{ url_for('pacientes.receta',id=paciente['id'])}}" role="button"><i class="fa fa-book-reader" data-toggle="tooltip" data-placement="top" title="Ver más"></i></a>
+          <hr class="my-4">
+          <a class="btn btn-success btn-sm" href="{{ url_for('pacientes.update',id=paciente['id']) }}"><i class="fa fa-user-edit" data-toggle="tooltip" data-placement="top" title="Editar"></i></a> 
+          <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" data-nombre="{{paciente['nombre']}}" data-id="{{paciente['id']}}" href=" "><i class="fa fa-user-minus" data-toggle="tooltip" data-placement="top" title="Eliminar"></i></button> 
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+     
+    {%endfor%}
+    <div class="form-small">
+      {{ m_pagination(pacientes) }}
+    </div>
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" >Eliminar: <span></span></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Va a eliminar un paciente ¿está seguro de continuar?
+          </div>
+          <div class="modal-footer">
+            
+            <a href="#" id="deletePaciente" class="btn btn-danger">Si</a>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      window.onload=function(){
+        $('#deleteModal').on('show.bs.modal', function (event) {
+          var button = $(event.relatedTarget) // Button that triggered the modal
+          var nombre = button.data('nombre')
+          var id = button.data('id')
+          var modal = $(this)
+          modal.find('.modal-title span').text(nombre)
+          $("#deletePaciente").attr("href","/paciente-delete/"+id)
+        })
+    }
+    </script>
+{% endblock %}

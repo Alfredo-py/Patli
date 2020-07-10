@@ -1,0 +1,13 @@
+{% extends 'base/base.html' %}
+
+{% block container %}
+    <h1>Paciente: {{paciente['nombre']}} {{paciente['apellido_paterno']}} {{paciente['apellido_materno']}}</h1>
+    <h2>Edad: {{paciente['edad']}}</h2>
+    <ul>
+        <li>Sintomas: {{paciente['sintomas']}}</li>
+        <li>Padecimientos: {{paciente['padecimientos']}}</li>
+        <li>Alergias: {{paciente['alergias']}}</li>
+        <li>Tratamiento: {{paciente['tratamiento']}}</li>
+    </ul>
+{% endblock %}
+    

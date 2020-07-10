@@ -1,0 +1,64 @@
+{% extends 'base/base.html' %}
+{% from 'macros/_paginacion_exp.html' import m_pagination %}
+{% block container %}
+    <h1>Expedientes: </h1>
+    <a class="btn btn-primary btn-lg" href="{{ url_for('expedientes.crear')}}" role="button"><i class="fa fa-folder-open" data-toggle="tooltip" data-placement="top" title="Crear Expediente"></i></a>
+    {%for categoria in expedientes.items%}
+    <div class="card mb-3 form-small" style="max-width: 540px;">
+      <div class="row no-gutters">
+        <div class="col-md-4">
+          <img src="{{url_for('static',filename='img/index.png')}}" class="card-img" alt="...">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{categoria['nombre'] }} {{categoria['apellidos']}}</h5>
+            <p class="card-text"><strong>Tratamiento:</strong> {{categoria['tratamiento']}}</p>
+            <p class="card-text">
+              <a class="btn btn-success btn-sm" href="{{ url_for('expedientes.update',id=categoria['id']) }}"><i class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Editar"></i></a> 
+          <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" data-nombre="{{categoria['nombre']}}" data-id="{{categoria['id']}}" href=" "><i class="fa fa-folder-minus" data-toggle="tooltip" data-placement="top" title="Eliminar"></i></button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+       
+    {%endfor%}
+    <div class="form-small">
+      {{ m_pagination(expedientes) }}
+    </div>
+    
+    <div class="modal fade " id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" >Eliminar: <span></span></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Va a eliminar un expediente ¿está seguro de continuar?
+          </div>
+          <div class="modal-footer">
+            
+            <a href="#" id="deleteExpediente" class="btn btn-danger">Si</a>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.onload=function(){
+        $('#deleteModal').on('show.bs.modal', function (event) {
+          var button = $(event.relatedTarget) 
+          var nombre = button.data('nombre')
+          var id = button.data('id')
+          var modal = $(this)
+          modal.find('.modal-title span').text(nombre)
+          $("#deleteExpediente").attr("href","/expediente-delete/"+id)
+        })
+    }
+   
+    </script>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base/base.html' %}
+{% from 'macros/_paginacion.html' import m_pagination %}
+{% block container %}
+    <h1>Pacientes: </h1>
+    <a class="btn btn-primary btn-lg" href="{{ url_for('expedientes.crear')}}" role="button">Nuevo</a>
+    {%for categoria in expedientes.items%}
+        
+        <div class="jumbotron pb-2 pr-2 pl-2 pt-2">
+          <h3>
+            <a>{{categoria['nombre'] }} {{categoria['apellidos']}}</a>
+          </h3>
+          <p class="lead"><strong>sintomas:</strong> {{categoria['sintomas']}} <strong>alergias:</strong>{{categoria['alergias']}}</p>
+          <p class="lead"><strong>tratamiento:</strong> {{categoria['tratamiento']}}</p>
+          <a class="btn btn-primary btn-lg" href="{{ url_for('expedientes.categoria',id=categoria['id']) }}" role="button">Leer más</a>
+          <hr class="my-4">
+          <a class="btn btn-success btn-sm" href="{{ url_for('expedientes.update',id=categoria['id']) }}"><i class="fa fa-user-edit" data-toggle="tooltip" data-placement="top" title="Editar"></i></a> 
+          <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" data-nombre="{{categoria['nombre']}}" data-id="{{categoria['id']}}" href=" "><i class="fa fa-user-minus" data-toggle="tooltip" data-placement="top" title="Eliminar"></i></button> 
+        </div>
+    {%endfor%}
+    {{ m_pagination(expedientes) }}
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" >Eliminar: <span></span></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Va a borrar un categoria, esta seguro de continuar?
+          </div>
+          <div class="modal-footer">
+            
+            <a href="#" id="deletePaciente" class="btn btn-danger">Si</a>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      window.onload=function(){
+        $('#deleteModal').on('show.bs.modal', function (event) {
+          var button = $(event.relatedTarget) // Button that triggered the modal
+          var nombre = button.data('nombre')
+          var id = button.data('id')
+          var modal = $(this)
+          modal.find('.modal-title span').text(nombre)
+          $("#deletePaciente").attr("href","/categoria-delete/"+id)
+        })
+    }
+    </script>
+{% endblock %}
