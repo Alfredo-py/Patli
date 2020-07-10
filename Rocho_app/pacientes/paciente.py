@@ -1,5 +1,6 @@
 from flask import Blueprint,render_template, request,redirect, url_for, flash, get_flashed_messages,current_app,send_from_directory
 from flask_login import login_required
+from Rocho_app import db
 from Rocho_app import administrador
 from Rocho_app.pacientes.model.paciente import Paciente
 from Rocho_app.pacientes.model.categoria import Categoria
@@ -161,6 +162,8 @@ def receta(id):
       p.add_run(paciente.temperatura)
       p.add_run("    ")
       document.add_heading('Alergias:', level=1)
+      document.add_paragraph(paciente.alergias)
+      document.add_heading('Padecimientos:', level=1)
       document.add_paragraph(paciente.padecimientos)
       document.add_heading('Sintomas:', level=1)
       document.add_paragraph(paciente.sintomas)
