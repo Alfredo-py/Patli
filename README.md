@@ -17,16 +17,21 @@ Se necesitan estos requerimientos especiales para poder bajar el repositorio, se
     * Instalar pip en caso de no instalarse junto con python
 * Cuarto paso:
     * Instalar paqueterias Flask, enum, docx, Flask-Login, Flask-SQLAlchemy, Flask-WTF, Jinja2, python-docx, Werkzeug, WTForms
+* Quinto paso crear base de datos:
+    * crear la base de datos pythonp
 
 ## Instalación:
 Para instalar y correr el proyecto se agregan instrucciones para poder hacer que se ejecute el mismo:
+```Terminal Linux
+yum -y install mariadb 
+```Terminal MacOS
+brew install mysql
+```Terminal
+mysql create database pythonp;
 ```Terminal
 pip3 install Flask enum docx Flask-Login Flask-SQLAlchemy Flask-WTF Jinja2 python-docx Werkzeug WTForms
-```
-## Preview
-Insert here an image of the preview if your project has one. The image can be into the project, you have to indicate the route and look like this.
+```Terminal 
+python3 run.py
 
-![](/preview.jpg)
-
-### Notes
-If you want to learn all about markdown i recommend you visit the site [markdown.es](https://markdown.es/sintaxis-markdown/)
+### Notas
+Una vez instalado y corriendo el software podras verlo en cualquier navegador entrando a 127.0.0.1/login, instalar todas las dependencias ya que si no podra ejecutarse el programa
