@@ -29,7 +29,7 @@ brew install mysql
 ```Terminal
 mysql create database pythonp;
 ```Terminal
-pip3 install Flask enum docx Flask-Login Flask-SQLAlchemy Flask-WTF Jinja2 python-docx Werkzeug WTForms
+pip3 install Flask pymysql docx Flask-Login Flask-SQLAlchemy Flask-WTF Jinja2 python-docx Werkzeug WTForms
 ```Terminal 
 python3 run.py
 ```
