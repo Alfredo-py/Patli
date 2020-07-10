@@ -34,4 +34,4 @@ pip3 install Flask enum docx Flask-Login Flask-SQLAlchemy Flask-WTF Jinja2 pytho
 python3 run.py
 ```
 ### Notas
-Una vez instalado y corriendo el software podras verlo en cualquier navegador entrando a 127.0.0.1/login, **instalar todas las dependencias ya que si no podra ejecutarse el programa**
+Una vez instalado y corriendo el software podras verlo en cualquier navegador entrando a 127.0.0.1/login, **instalar todas las dependencias ya que si no, no podra ejecutarse el programa**
